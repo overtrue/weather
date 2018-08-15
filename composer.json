@@ -17,5 +17,12 @@
         "guzzlehttp/guzzle": "^6.3",
         "phpunit/phpunit": "^7.3",
         "mockery/mockery": "^1.1"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Overtrue\\Weather\\ServiceProvider"
+            ]
+        }
     }
 }
