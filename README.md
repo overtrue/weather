@@ -53,9 +53,9 @@ array | string   getWeather(string $location, string $format = 'json', string $c
 在 Laravel 中使用也是同样的安装方式，配置写在 `config/services.php` 中：
 
 ```php
-	 'weather' => [
-        'ak' => env('BAIDU_WEATHER_AK'),
-        'sn' => env('BAIDU_WEATHER_SN'), 
+     'weather' => [
+            'ak' => env('BAIDU_WEATHER_AK'),
+            'sn' => env('BAIDU_WEATHER_SN'), 
     ],
 ```
 
