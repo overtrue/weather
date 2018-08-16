@@ -1,7 +1,7 @@
 
-# Weather
+<h1 align="center">Weather</h1>
 
-基于百度地图接口的 PHP 天气信息组件。
+<p align="center">:rainbow: 基于百度地图接口的 PHP 天气信息组件。</p>
 
 ## 安装
 
