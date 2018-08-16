@@ -1,7 +1,7 @@
 
-# Weather
+<h1 align="center">Weather</h1>
 
-基于百度地图接口的 PHP 天气信息组件。
+<p align="center">:rainbow: 基于百度地图接口的 PHP 天气信息组件。</p>
 
 ## 安装
 
@@ -80,10 +80,14 @@ BAIDU_WEATHER_SN=
 #### 方法参数注入
 
 ```php
-	public function edit(Weather $weather) 
-	{
-		$response = $weather->get('深圳');
-	}
+use Overtrue\Weather\Weather;
+
+...
+
+public function edit(Weather $weather) 
+{
+    $response = $weather->get('深圳');
+}
 ```
 
 #### 服务名访问
