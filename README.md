@@ -14,6 +14,7 @@ $ composer require overtrue/weather -vvv
 在使用本拓展之前，你需要去 [百度地图](http://lbsyun.baidu.com/index.php?title=car/api/weather) 注册账号，然后创建应用，获取应用的 `ak` 值
 
 ## 使用
+## 使用
 
 ```php
 use Overtrue\Weather\Weather;
@@ -26,33 +27,41 @@ $weather = new Weather($ak);
 $response = $weather->getWeather('深圳');
 
 // 批量获取
-$response = $weather->getWeather('深圳,北京');
+$response = $weather->getWeather('深圳|北京');
 
 // 返回 XML 格式
 $response = $weather->getWeather('深圳', 'xml');
 
 // 按坐标获取
-$response = $weather->getWeather('116.306411,39.981839', 'json');
+$response = $weather->getWeather('116.30,39.98', 'json');
+
+// 批量坐标获取
+$response = $weather->getWeather('116.43,40.75|120.22,43,33', 'json');
 
 // 自定义坐标格式（coord_type）
 $response = $weather->getWeather('116.306411,39.981839', 'json', 'bd09ll');
 ```
 
 ### 参数说明
+
 ```
 array | string   getWeather(string $location, string $format = 'json', string $coordType = null)
 ```
 
-> - $location 地点，中文或者坐标地址，多个用斗角逗号隔开
-> - $format 返回格式， `json`(默认)/`xml`, `json` 将会返回数组格式，`xml` 返回字符串格式。
-> - $coordType 坐标格式，允许的值为`bd09ll`、`bd09mc`、`gcj02`、`wgs84`，默认为 `gcj02` 经纬度坐标。
-> 详情说明请参考官方：http://lbsyun.baidu.com/index.php?title=car/api/weather
+> 参数说明：
+> - `$location` - 支持经纬度和城市名两种形式，一次请求最多支持 15 个城市，之间用 "|" 分隔，同一个城市的经纬度之间用 "," 分隔。举例：`$location = "116.43,40.75|120.22,43,33"` 或者是 `$location = "北京|上海|广州"` 。
+> - `$format`  - 输出的数据格式，默认为 json 格式，当 output 设置为 ’xml’ 时，输出的为 xml 格式的数据。
+> - `$coordType` - 请求参数坐标类型，默认为 `gcj02` 经纬度坐标。允许的值为 `bd09ll`、`bd09mc`、`gcj02`、`wgs84`。`bd09ll` 表示百度经纬度坐标，`bd09mc`表示百度墨卡托坐标，`gcj02` 表示经过国测局加密的坐标。`wgs84` 表示 `gps` 获取的坐标。
+> - 详情说明请参考官方：http://lbsyun.baidu.com/index.php?title=car/api/weather
 
 ### 在 Laravel 中使用
 
 在 Laravel 中使用也是同样的安装方式，配置写在 `config/services.php` 中：
 
 ```php
+	.
+	.
+	.
 	 'weather' => [
         'ak' => env('BAIDU_WEATHER_AK'),
         'sn' => env('BAIDU_WEATHER_SN'), 
@@ -73,14 +82,18 @@ BAIDU_WEATHER_SN=
 ```php
 	public function edit(Weather $weather) 
 	{
-			$response = $weather->get('深圳');
+		$response = $weather->get('深圳');
 	}
 ```
 
 #### 服务名访问
 
 ```php
-$response = app('weather')->get('深圳');
+	public function edit() 
+	{
+		$response = app('weather')->get('深圳');
+	}
+
 ```
 
 ## 参考
