@@ -73,7 +73,7 @@ BAIDU_WEATHER_SN=
 ```php
 public function edit(Weather $weather) 
 {
-        $response = $weather->get('深圳');
+    $response = $weather->get('深圳');
 }
 ```
 
