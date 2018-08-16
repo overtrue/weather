@@ -71,6 +71,10 @@ BAIDU_WEATHER_SN=
 #### 方法参数注入
 
 ```php
+use Overtrue\Weather\Weather;
+
+...
+
 public function edit(Weather $weather) 
 {
     $response = $weather->get('深圳');
