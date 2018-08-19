@@ -15,8 +15,8 @@
     },
     "require": {
         "guzzlehttp/guzzle": "^6.3",
-        "phpunit/phpunit": "^7.3",
-        "mockery/mockery": "^1.1"
+        "mockery/mockery": "^1.1",
+        "phpunit/phpunit": "~5"
     },
     "extra": {
         "laravel": {
