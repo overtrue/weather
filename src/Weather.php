@@ -40,7 +40,7 @@ class Weather
      * @param string      $ak
      * @param string|null $sn
      */
-    public function __construct(string $ak, string $sn = null)
+    public function __construct($ak, $sn = null)
     {
         $this->ak = $ak;
         $this->sn = $sn;
@@ -72,7 +72,7 @@ class Weather
      * @throws \Overtrue\Weather\Exceptions\HttpException
      * @throws \Overtrue\Weather\Exceptions\InvalidArgumentException
      */
-    public function getWeather(string $location, string $format = 'json', string $coordType = null)
+    public function getWeather($location, $format = 'json', $coordType = null)
     {
         $url = 'http://api.map.baidu.com/telematics/v3/weather';
 
