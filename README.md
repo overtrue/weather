@@ -5,6 +5,8 @@
 
 [![Build Status](https://travis-ci.org/overtrue/weather.svg?branch=master)](https://travis-ci.org/overtrue/weather)
 
+![StyleCI build status](https://github.styleci.io/repos/144818004/shield)  
+
 ## 安装
 
 ```sh
