@@ -73,9 +73,8 @@ class Weather
      * @throws \Overtrue\Weather\Exceptions\HttpException
      * @throws \Overtrue\Weather\Exceptions\InvalidArgumentException
      */
-    public function getWeather($location, $format = 'json', $coordType = null)
-    {
-        $url = 'http://api.map.baidu.com/telematics/v3/weather';
+    public function getWeather($location,$format = 'json',$coordType = null)
+    {$url = 'http://api.map.baidu.com/telematics/v3/weather';
 
         if (!\in_array($format, ['xml', 'json'])) {
             throw new InvalidArgumentException('Invalid response format: '.$format);
