@@ -3,6 +3,8 @@
 
 <p align="center">:rainbow: 基于百度地图接口的 PHP 天气信息组件。</p>
 
+[![Build Status](https://travis-ci.org/overtrue/weather.svg?branch=master)](https://travis-ci.org/overtrue/weather)
+
 ## 安装
 
 ```sh
