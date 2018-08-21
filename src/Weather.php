@@ -61,6 +61,7 @@ class Weather
      * @param string $format
      *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws \Overtrue\Weather\Exceptions\HttpException
      * @throws \Overtrue\Weather\Exceptions\InvalidArgumentException
      */
@@ -74,6 +75,7 @@ class Weather
      * @param string $format
      *
      * @return \Psr\Http\Message\ResponseInterface
+     *
      * @throws \Overtrue\Weather\Exceptions\HttpException
      * @throws \Overtrue\Weather\Exceptions\InvalidArgumentException
      */
