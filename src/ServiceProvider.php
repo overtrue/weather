@@ -29,7 +29,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function register()
     {
         $this->app->singleton(Weather::class, function () {
-            return new Weather(config('services.weather.ak'), config('services.weather.sn'));
+            return new Weather(config('services.weather.key'));
         });
 
         $this->app->alias(Weather::class, 'weather');

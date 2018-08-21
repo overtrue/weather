@@ -1,7 +1,7 @@
 
 <h1 align="center">Weather</h1>
 
-<p align="center">:rainbow: 基于百度地图接口的 PHP 天气信息组件。</p>
+<p align="center">:rainbow: 基于高德开放平台的 PHP 天气信息组件。</p>
 
 [![Build Status](https://travis-ci.org/overtrue/weather.svg?branch=master)](https://travis-ci.org/overtrue/weather) 
 ![StyleCI build status](https://github.styleci.io/repos/144818004/shield)  
@@ -14,48 +14,163 @@ $ composer require overtrue/weather -vvv
 
 ## 配置
 
-在使用本拓展之前，你需要去 [百度地图](http://lbsyun.baidu.com/index.php?title=car/api/weather) 注册账号，然后创建应用，获取应用的 `ak` 值
+在使用本扩展之前，你需要去 [高德开放平台](https://lbs.amap.com/dev/id/newuser) 注册账号，然后创建应用，获取应用的 API Key。
 
-## 使用
+
 ## 使用
 
 ```php
 use Overtrue\Weather\Weather;
 
-$ak = 'xxxxxxxxxxxxxxxxxxxxxxxxxxx';
+$key = 'xxxxxxxxxxxxxxxxxxxxxxxxxxx';
 
-$weather = new Weather($ak);
+$weather = new Weather($key);
+```
 
-// 返回数组格式
+###  获取实时天气
+
+```php
 $response = $weather->getWeather('深圳');
+```
+示例：
 
-// 批量获取
-$response = $weather->getWeather('深圳|北京');
+```
+{
+    "status": "1",
+    "count": "1",
+    "info": "OK",
+    "infocode": "10000",
+    "lives": [
+        {
+            "province": "广东",
+            "city": "深圳市",
+            "adcode": "440300",
+            "weather": "中雨",
+            "temperature": "27",
+            "winddirection": "西南",
+            "windpower": "5",
+            "humidity": "94",
+            "reporttime": "2018-08-21 16:00:00"
+        }
+    ]
+}
+```
 
-// 返回 XML 格式
-$response = $weather->getWeather('深圳', 'xml');
+### 获取近期天气预报
 
-// 按坐标获取
-$response = $weather->getWeather('116.30,39.98', 'json');
+```
+$response = $weather->getWeather('深圳', 'all');
+```
+示例：
 
-// 批量坐标获取
-$response = $weather->getWeather('116.43,40.75|120.22,43,33', 'json');
+```json
+{
+    "status": "1", 
+    "count": "1", 
+    "info": "OK", 
+    "infocode": "10000", 
+    "forecasts": [
+        {
+            "city": "深圳市", 
+            "adcode": "440300", 
+            "province": "广东", 
+            "reporttime": "2018-08-21 11:00:00", 
+            "casts": [
+                {
+                    "date": "2018-08-21", 
+                    "week": "2", 
+                    "dayweather": "雷阵雨", 
+                    "nightweather": "雷阵雨", 
+                    "daytemp": "31", 
+                    "nighttemp": "26", 
+                    "daywind": "无风向", 
+                    "nightwind": "无风向", 
+                    "daypower": "≤3", 
+                    "nightpower": "≤3"
+                }, 
+                {
+                    "date": "2018-08-22", 
+                    "week": "3", 
+                    "dayweather": "雷阵雨", 
+                    "nightweather": "雷阵雨", 
+                    "daytemp": "32", 
+                    "nighttemp": "27", 
+                    "daywind": "无风向", 
+                    "nightwind": "无风向", 
+                    "daypower": "≤3", 
+                    "nightpower": "≤3"
+                }, 
+                {
+                    "date": "2018-08-23", 
+                    "week": "4", 
+                    "dayweather": "雷阵雨", 
+                    "nightweather": "雷阵雨", 
+                    "daytemp": "32", 
+                    "nighttemp": "26", 
+                    "daywind": "无风向", 
+                    "nightwind": "无风向", 
+                    "daypower": "≤3", 
+                    "nightpower": "≤3"
+                }, 
+                {
+                    "date": "2018-08-24", 
+                    "week": "5", 
+                    "dayweather": "雷阵雨", 
+                    "nightweather": "雷阵雨", 
+                    "daytemp": "31", 
+                    "nighttemp": "26", 
+                    "daywind": "无风向", 
+                    "nightwind": "无风向", 
+                    "daypower": "≤3", 
+                    "nightpower": "≤3"
+                }
+            ]
+        }
+    ]
+}
+```
 
-// 自定义坐标格式（coord_type）
-$response = $weather->getWeather('116.306411,39.981839', 'json', 'bd09ll');
+### 获取 XML 格式返回值
+
+第三个参数为返回值类型，可选 `json` 与 `xml`，默认 `json`：
+
+```php
+$response = $weather->getWeather('深圳', 'all', 'xml');
+```
+
+示例：
+
+```xml
+<response>
+    <status>1</status>
+    <count>1</count>
+    <info>OK</info>
+    <infocode>10000</infocode>
+    <lives type="list">
+        <live>
+            <province>广东</province>
+            <city>深圳市</city>
+            <adcode>440300</adcode>
+            <weather>中雨</weather>
+            <temperature>27</temperature>
+            <winddirection>西南</winddirection>
+            <windpower>5</windpower>
+            <humidity>94</humidity>
+            <reporttime>2018-08-21 16:00:00</reporttime>
+        </live>
+    </lives>
+</response>
 ```
 
 ### 参数说明
 
 ```
-array | string   getWeather(string $location, string $format = 'json', string $coordType = null)
+array | string   getWeather(string $city, string $type = 'base', string $format = 'json')
 ```
 
-> 参数说明：
-> - `$location` - 支持经纬度和城市名两种形式，一次请求最多支持 15 个城市，之间用 "|" 分隔，同一个城市的经纬度之间用 "," 分隔。举例：`$location = "116.43,40.75|120.22,43,33"` 或者是 `$location = "北京|上海|广州"` 。
-> - `$format`  - 输出的数据格式，默认为 json 格式，当 output 设置为 ’xml’ 时，输出的为 xml 格式的数据。
-> - `$coordType` - 请求参数坐标类型，默认为 `gcj02` 经纬度坐标。允许的值为 `bd09ll`、`bd09mc`、`gcj02`、`wgs84`。`bd09ll` 表示百度经纬度坐标，`bd09mc`表示百度墨卡托坐标，`gcj02` 表示经过国测局加密的坐标。`wgs84` 表示 `gps` 获取的坐标。
-> - 详情说明请参考官方：http://lbsyun.baidu.com/index.php?title=car/api/weather
+> - `$city` - 城市名，比如：“深圳”；
+> - `$type` - 返回内容类型：`base`: 返回实况天气 / `all`:返回预报天气；
+> - `$format`  - 输出的数据格式，默认为 json 格式，当 output 设置为 “`xml`” 时，输出的为 XML 格式的数据。
 
 ### 在 Laravel 中使用
 
@@ -66,16 +181,14 @@ array | string   getWeather(string $location, string $format = 'json', string $c
 	.
 	.
 	 'weather' => [
-        'ak' => env('BAIDU_WEATHER_AK'),
-        'sn' => env('BAIDU_WEATHER_SN'), 
+		'key' => env('WEATHER_API_KEY'),
     ],
 ```
 
-然后在 `.env` 中配置（`BAIDU_WEATHER_SN` 为可选）：
+然后在 `.env` 中配置 `WEATHER_API_KEY` ：
 
 ```env
-BAIDU_WEATHER_AK=
-BAIDU_WEATHER_SN=
+WEATHER_API_KEY=xxxxxxxxxxxxxxxxxxxxx
 ```
 
 可以用两种方式来获取 `Overtrue\Weather\Weather` 实例：
@@ -83,29 +196,37 @@ BAIDU_WEATHER_SN=
 #### 方法参数注入
 
 ```php
-use Overtrue\Weather\Weather;
-
-...
-
-public function edit(Weather $weather) 
-{
-    $response = $weather->get('深圳');
-}
+	.
+	.
+	.
+	public function edit(Weather $weather) 
+	{
+		$response = $weather->get('深圳');
+	}
+	.
+	.
+	.
 ```
 
 #### 服务名访问
 
 ```php
+	.
+	.
+	.
 	public function edit() 
 	{
 		$response = app('weather')->get('深圳');
 	}
+	.
+	.
+	.
 
 ```
 
 ## 参考
 
-- [百度地图天气接口](http://lbsyun.baidu.com/index.php?title=car/api/weather)
+- [高德开放平台天气接口](https://lbs.amap.com/api/webservice/guide/api/weatherinfo/)
 
 ## License
 

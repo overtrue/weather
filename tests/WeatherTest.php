@@ -22,14 +22,26 @@ use PHPUnit\Framework\TestCase;
 
 class WeatherTest extends TestCase
 {
+    public function testGetWeatherWithInvalidType()
+    {
+        $w = new Weather('mock-key');
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid type value(base/all): foo');
+
+        $w->getWeather('深圳', 'foo');
+
+        $this->fail('Faild to asset getWeather throw exception with invalid argument.');
+    }
+
     public function testGetWeatherWithInvalidFormat()
     {
-        $w = new Weather('mock-ak');
+        $w = new Weather('mock-key');
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid response format: array');
 
-        $w->getWeather('深圳', 'array');
+        $w->getWeather('深圳', 'base', 'array');
 
         $this->fail('Faild to asset getWeather throw exception with invalid argument.');
     }
@@ -39,15 +51,16 @@ class WeatherTest extends TestCase
         // json
         $response = new Response(200, [], '{"success": true}');
         $client = \Mockery::mock(Client::class);
-        $client->allows()->get('http://api.map.baidu.com/telematics/v3/weather', [
+        $client->allows()->get('https://restapi.amap.com/v3/weather/weatherInfo', [
             'query' => [
-                'ak' => 'mock-ak',
-                'location' => '深圳',
+                'key' => 'mock-key',
+                'city' => '深圳',
                 'output' => 'json',
+                'extensions' => 'base',
             ],
         ])->andReturn($response);
 
-        $w = \Mockery::mock(Weather::class, ['mock-ak'])->makePartial();
+        $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
         $w->allows()->getHttpClient()->andReturn($client);
 
         $this->assertSame(['success' => true], $w->getWeather('深圳'));
@@ -55,18 +68,19 @@ class WeatherTest extends TestCase
         // xml
         $response = new Response(200, [], '<hello>content</hello>');
         $client = \Mockery::mock(Client::class);
-        $client->allows()->get('http://api.map.baidu.com/telematics/v3/weather', [
+        $client->allows()->get('https://restapi.amap.com/v3/weather/weatherInfo', [
             'query' => [
-                'ak' => 'mock-ak',
-                'location' => '深圳',
+                'key' => 'mock-key',
+                'city' => '深圳',
+                'extensions' => 'all',
                 'output' => 'xml',
             ],
         ])->andReturn($response);
 
-        $w = \Mockery::mock(Weather::class, ['mock-ak'])->makePartial();
+        $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
         $w->allows()->getHttpClient()->andReturn($client);
 
-        $this->assertSame('<hello>content</hello>', $w->getWeather('深圳', 'xml'));
+        $this->assertSame('<hello>content</hello>', $w->getWeather('深圳', 'all', 'xml'));
     }
 
     public function testGetWeatherWithGuzzleRuntimeException()
@@ -76,7 +90,7 @@ class WeatherTest extends TestCase
             ->get(new AnyArgs())
             ->andThrow(new \Exception('request timeout'));
 
-        $w = \Mockery::mock(Weather::class, ['mock-ak'])->makePartial();
+        $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
         $w->allows()->getHttpClient()->andReturn($client);
 
         $this->expectException(HttpException::class);
@@ -87,7 +101,7 @@ class WeatherTest extends TestCase
 
     public function testGetHttpClient()
     {
-        $w = new Weather('mock-ak');
+        $w = new Weather('mock-key');
 
         // 断言返回结果为 GuzzleHttp\ClientInterface 实例
         $this->assertInstanceOf(ClientInterface::class, $w->getHttpClient());
@@ -95,7 +109,7 @@ class WeatherTest extends TestCase
 
     public function testSetGuzzleOptions()
     {
-        $w = new Weather('mock-ak');
+        $w = new Weather('mock-key');
 
         // 设置参数前，timeout 为 null
         $this->assertNull($w->getHttpClient()->getConfig('timeout'));

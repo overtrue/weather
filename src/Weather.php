@@ -23,12 +23,7 @@ class Weather
     /**
      * @var string
      */
-    protected $ak;
-
-    /**
-     * @var string|null
-     */
-    protected $sn;
+    protected $key;
 
     /**
      * @var array
@@ -38,13 +33,11 @@ class Weather
     /**
      * Weather constructor.
      *
-     * @param string      $ak
-     * @param string|null $sn
+     * @param string $key
      */
-    public function __construct($ak, $sn = null)
+    public function __construct($key)
     {
-        $this->ak = $ak;
-        $this->sn = $sn;
+        $this->key = $key;
     }
 
     /**
@@ -64,28 +57,31 @@ class Weather
     }
 
     /**
-     * @param string      $location
-     * @param string      $format
-     * @param string|null $coordType
+     * @param string $city
+     * @param string $type
+     * @param string $format
      *
      * @return \Psr\Http\Message\ResponseInterface
-     *
      * @throws \Overtrue\Weather\Exceptions\HttpException
      * @throws \Overtrue\Weather\Exceptions\InvalidArgumentException
      */
-    public function getWeather($location, $format = 'json', $coordType = null)
+    public function getWeather($city, $type = 'base', $format = 'json')
     {
-        $url = 'http://api.map.baidu.com/telematics/v3/weather';
-        if (!\in_array($format, ['xml', 'json'])) {
+        $url = 'https://restapi.amap.com/v3/weather/weatherInfo';
+
+        if (!\in_array(\strtolower($format), ['xml', 'json'])) {
             throw new InvalidArgumentException('Invalid response format: '.$format);
         }
 
+        if (!\in_array(\strtolower($type), ['base', 'all'])) {
+            throw new InvalidArgumentException('Invalid type value(base/all): '.$type);
+        }
+
         $query = array_filter([
-            'ak' => $this->ak,
-            'sn' => $this->sn,
-            'location' => $location,
+            'key' => $this->key,
+            'city' => $city,
             'output' => $format,
-            'coord_type' => $coordType,
+            'extensions' => $type,
         ]);
 
         try {
