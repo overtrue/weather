@@ -58,6 +58,32 @@ class Weather
 
     /**
      * @param string $city
+     * @param string $format
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws \Overtrue\Weather\Exceptions\HttpException
+     * @throws \Overtrue\Weather\Exceptions\InvalidArgumentException
+     */
+    public function getLiveWeather($city, $format = 'json')
+    {
+        return $this->getWeather($city, 'base', $format);
+    }
+
+    /**
+     * @param string $city
+     * @param string $format
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws \Overtrue\Weather\Exceptions\HttpException
+     * @throws \Overtrue\Weather\Exceptions\InvalidArgumentException
+     */
+    public function getForcastsWeather($city, $format = 'json')
+    {
+        return $this->getWeather($city, 'all', $format);
+    }
+
+    /**
+     * @param string $city
      * @param string $type
      * @param string $format
      *
