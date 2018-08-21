@@ -34,7 +34,7 @@ $response = $weather->getLiveWeather('深圳');
 ```
 示例：
 
-```
+```json
 {
     "status": "1",
     "count": "1",
