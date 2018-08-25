@@ -31,7 +31,7 @@ class WeatherTest extends TestCase
 
         $w->getWeather('深圳', 'foo');
 
-        $this->fail('Faild to asset getWeather throw exception with invalid argument.');
+        $this->fail('Faild to assert getWeather throw exception with invalid argument.');
     }
 
     public function testGetWeatherWithInvalidFormat()
@@ -43,7 +43,7 @@ class WeatherTest extends TestCase
 
         $w->getWeather('深圳', 'base', 'array');
 
-        $this->fail('Faild to asset getWeather throw exception with invalid argument.');
+        $this->fail('Faild to assert getWeather throw exception with invalid argument.');
     }
 
     public function testGetWeather()
