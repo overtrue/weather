@@ -109,8 +109,8 @@ class Weather
         $query = array_filter([
             'key' => $this->key,
             'city' => $city,
-            'output' => $format,
-            'extensions' => $type,
+            'output' => \strtolower($format),
+            'extensions' => \strtolower($type),
         ]);
 
         try {
