@@ -79,7 +79,7 @@ class Weather
      * @throws \Overtrue\Weather\Exceptions\HttpException
      * @throws \Overtrue\Weather\Exceptions\InvalidArgumentException
      */
-    public function getForcastsWeather($city, $format = 'json')
+    public function getForecastsWeather($city, $format = 'json')
     {
         return $this->getWeather($city, 'all', $format);
     }

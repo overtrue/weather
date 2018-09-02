@@ -131,13 +131,13 @@ class WeatherTest extends TestCase
         $this->assertSame(['success' => true], $w->getLiveWeather('深圳'));
     }
 
-    public function testGetForcastsWeather()
+    public function testGetForecastsWeather()
     {
         // 将 getWeather 接口模拟为返回固定内容，以测试参数传递是否正确
         $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
         $w->expects()->getWeather('深圳', 'all', 'json')->andReturn(['success' => true]);
 
         // 断言正确传参并返回
-        $this->assertSame(['success' => true], $w->getForcastsWeather('深圳'));
+        $this->assertSame(['success' => true], $w->getForecastsWeather('深圳'));
     }
 }

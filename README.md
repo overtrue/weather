@@ -59,7 +59,7 @@ $response = $weather->getLiveWeather('深圳');
 ### 获取近期天气预报
 
 ```
-$response = $weather->getForcastsWeather('深圳');
+$response = $weather->getForecastsWeather('深圳');
 ```
 示例：
 
@@ -166,7 +166,7 @@ $response = $weather->getLiveWeather('深圳', 'xml');
 
 ```
 array | string   getLiveWeather(string $city, string $format = 'json')
-array | string   getForcastsWeather(string $city, string $format = 'json')
+array | string   getForecastsWeather(string $city, string $format = 'json')
 ```
 
 > - `$city` - 城市名/[高德地址位置 adcode](https://lbs.amap.com/api/webservice/guide/api/district)，比如：“深圳” 或者（adcode：440300）；
