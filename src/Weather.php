@@ -106,11 +106,14 @@ class Weather
             throw new InvalidArgumentException('Invalid type value(base/all): '.$type);
         }
 
+        $format = \strtolower($format);
+        $type = \strtolower($type);
+
         $query = array_filter([
             'key' => $this->key,
             'city' => $city,
-            'output' => \strtolower($format),
-            'extensions' => \strtolower($type),
+            'output' => $format,
+            'extensions' => $type,
         ]);
 
         try {
