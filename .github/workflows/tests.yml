@@ -1,0 +1,29 @@
+name: Tests
+
+on:
+    push:
+        branches: [master]
+    pull_request:
+
+jobs:
+    phpunit:
+        strategy:
+            matrix:
+                # 需要在以下 PHP 版本中测试
+                php_version: [7.0, 7.1, 7.2, 7.3, 7.4]
+        runs-on: ubuntu-latest
+        steps:
+            # 检出代码
+            - uses: actions/checkout@v2
+            # 初始化 PHP 环境
+            - name: Setup PHP environment
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php_version }}
+                  coverage: xdebug
+            # 安装 composer 依赖
+            - name: Install dependencies
+              run: composer install
+            # 执行 PHPUnit 测试
+            - name: PHPUnit check
+              run: ./vendor/bin/phpunit --coverage-text
