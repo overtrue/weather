@@ -10,7 +10,7 @@ jobs:
         strategy:
             matrix:
                 # 需要在以下 PHP 版本中测试
-                php_version: [7.0, 7.1, 7.2, 7.3, 7.4]
+                php_version: [7.2, 7.3, 7.4]
         runs-on: ubuntu-latest
         steps:
             # 检出代码
