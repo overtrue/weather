@@ -3,7 +3,7 @@
 
 <p align="center">:rainbow: 基于高德开放平台的 PHP 天气信息组件。</p>
 
-[![Build Status](https://travis-ci.org/overtrue/weather.svg?branch=master)](https://travis-ci.org/overtrue/weather) 
+[![Tests](https://github.com/overtrue/weather/actions/workflows/tests.yml/badge.svg)](https://github.com/overtrue/weather/actions/workflows/tests.yml)
 
 [![Sponsor me](https://github.com/overtrue/overtrue/blob/master/sponsor-me-button-s.svg?raw=true)](https://github.com/sponsors/overtrue)
 
@@ -66,63 +66,63 @@ $response = $weather->getForecastsWeather('深圳');
 
 ```json
 {
-    "status": "1", 
-    "count": "1", 
-    "info": "OK", 
-    "infocode": "10000", 
+    "status": "1",
+    "count": "1",
+    "info": "OK",
+    "infocode": "10000",
     "forecasts": [
         {
-            "city": "深圳市", 
-            "adcode": "440300", 
-            "province": "广东", 
-            "reporttime": "2018-08-21 11:00:00", 
+            "city": "深圳市",
+            "adcode": "440300",
+            "province": "广东",
+            "reporttime": "2018-08-21 11:00:00",
             "casts": [
                 {
-                    "date": "2018-08-21", 
-                    "week": "2", 
-                    "dayweather": "雷阵雨", 
-                    "nightweather": "雷阵雨", 
-                    "daytemp": "31", 
-                    "nighttemp": "26", 
-                    "daywind": "无风向", 
-                    "nightwind": "无风向", 
-                    "daypower": "≤3", 
+                    "date": "2018-08-21",
+                    "week": "2",
+                    "dayweather": "雷阵雨",
+                    "nightweather": "雷阵雨",
+                    "daytemp": "31",
+                    "nighttemp": "26",
+                    "daywind": "无风向",
+                    "nightwind": "无风向",
+                    "daypower": "≤3",
                     "nightpower": "≤3"
-                }, 
+                },
                 {
-                    "date": "2018-08-22", 
-                    "week": "3", 
-                    "dayweather": "雷阵雨", 
-                    "nightweather": "雷阵雨", 
-                    "daytemp": "32", 
-                    "nighttemp": "27", 
-                    "daywind": "无风向", 
-                    "nightwind": "无风向", 
-                    "daypower": "≤3", 
+                    "date": "2018-08-22",
+                    "week": "3",
+                    "dayweather": "雷阵雨",
+                    "nightweather": "雷阵雨",
+                    "daytemp": "32",
+                    "nighttemp": "27",
+                    "daywind": "无风向",
+                    "nightwind": "无风向",
+                    "daypower": "≤3",
                     "nightpower": "≤3"
-                }, 
+                },
                 {
-                    "date": "2018-08-23", 
-                    "week": "4", 
-                    "dayweather": "雷阵雨", 
-                    "nightweather": "雷阵雨", 
-                    "daytemp": "32", 
-                    "nighttemp": "26", 
-                    "daywind": "无风向", 
-                    "nightwind": "无风向", 
-                    "daypower": "≤3", 
+                    "date": "2018-08-23",
+                    "week": "4",
+                    "dayweather": "雷阵雨",
+                    "nightweather": "雷阵雨",
+                    "daytemp": "32",
+                    "nighttemp": "26",
+                    "daywind": "无风向",
+                    "nightwind": "无风向",
+                    "daypower": "≤3",
                     "nightpower": "≤3"
-                }, 
+                },
                 {
-                    "date": "2018-08-24", 
-                    "week": "5", 
-                    "dayweather": "雷阵雨", 
-                    "nightweather": "雷阵雨", 
-                    "daytemp": "31", 
-                    "nighttemp": "26", 
-                    "daywind": "无风向", 
-                    "nightwind": "无风向", 
-                    "daypower": "≤3", 
+                    "date": "2018-08-24",
+                    "week": "5",
+                    "dayweather": "雷阵雨",
+                    "nightweather": "雷阵雨",
+                    "daytemp": "31",
+                    "nighttemp": "26",
+                    "daywind": "无风向",
+                    "nightwind": "无风向",
+                    "daypower": "≤3",
                     "nightpower": "≤3"
                 }
             ]
@@ -201,7 +201,7 @@ WEATHER_API_KEY=xxxxxxxxxxxxxxxxxxxxx
     .
     .
     .
-    public function edit(Weather $weather) 
+    public function edit(Weather $weather)
     {
         $response = $weather->getLiveWeather('深圳');
     }
@@ -216,7 +216,7 @@ WEATHER_API_KEY=xxxxxxxxxxxxxxxxxxxxx
     .
     .
     .
-    public function edit() 
+    public function edit()
     {
         $response = app('weather')->getLiveWeather('深圳');
     }
@@ -230,7 +230,7 @@ WEATHER_API_KEY=xxxxxxxxxxxxxxxxxxxxx
 
 - [高德开放平台天气接口](https://lbs.amap.com/api/webservice/guide/api/weatherinfo/)
 
-## :heart: Sponsor me 
+## :heart: Sponsor me
 
 [![Sponsor me](https://github.com/overtrue/overtrue/blob/master/sponsor-me.svg?raw=true)](https://github.com/sponsors/overtrue)
 
